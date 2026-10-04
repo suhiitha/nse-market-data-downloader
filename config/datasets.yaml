@@ -1,0 +1,105 @@
+# NSE Market Data Configuration
+# Configuration for the four required NSE market data categories.
+# Application logic references this file; URLs and schemas are decoupled from code.
+
+base_url: "https://www.nseindia.com"
+
+# Network & Retry settings
+network:
+  timeout_seconds: 15
+  max_retries: 3
+  initial_backoff_seconds: 1.5
+  backoff_multiplier: 2.0
+  max_backoff_seconds: 10.0
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+
+# Datasets definition
+datasets:
+  top-gainers-losers:
+    name: "Top Gainers / Losers"
+    source: "NSE"
+    web_url: "https://www.nseindia.com/market-data/top-gainers-losers"
+    endpoint: "/api/live-analysis-variations"
+    output_filename: "top_gainers_losers"
+    primary_key: "symbol"
+    description: "Capital market stocks with highest percentage gains and losses across NIFTY indices"
+    sources:
+      - category: "GAINER"
+        params:
+          index: "gainers"
+      - category: "LOSER"
+        params:
+          index: "loosers"
+    expected_fields:
+      - "symbol"
+      - "series"
+      - "open_price"
+      - "high_price"
+      - "low_price"
+      - "ltp"
+      - "prev_price"
+      - "net_price"
+      - "trade_quantity"
+      - "turnover"
+      - "perChange"
+      - "category"
+
+  upper-band-hitters:
+    name: "Upper Band Hitters"
+    source: "NSE"
+    web_url: "https://www.nseindia.com/market-data/upper-band-hitters"
+    endpoint: "/api/live-analysis-price-band-hitter"
+    output_filename: "upper_band_hitters"
+    primary_key: "symbol"
+    description: "Securities touching or hitting their upper circuit / upper price band limits"
+    expected_fields:
+      - "symbol"
+      - "series"
+      - "ltp"
+      - "change"
+      - "pChange"
+      - "priceBand"
+      - "highPrice"
+      - "lowPrice"
+      - "totalTradedVol"
+      - "turnover"
+
+  volume-gainers-spurts:
+    name: "Volume Gainers Spurts"
+    source: "NSE"
+    web_url: "https://www.nseindia.com/market-data/volume-gainers-spurts"
+    endpoint: "/api/live-analysis-volume-gainers"
+    output_filename: "volume_gainers_spurts"
+    primary_key: "symbol"
+    description: "Securities experiencing unusual volume spikes and trading spurts compared to averages"
+    expected_fields:
+      - "symbol"
+      - "companyName"
+      - "volume"
+      - "week1AvgVolume"
+      - "week1volChange"
+      - "week2AvgVolume"
+      - "week2volChange"
+      - "ltp"
+      - "pChange"
+      - "turnover"
+
+  52-week-high:
+    name: "52 Week High Equity Market"
+    source: "NSE"
+    web_url: "https://www.nseindia.com/market-data/52-week-high-equity-market"
+    endpoint: "/api/live-analysis-data-52weekhighstock"
+    output_filename: "52_week_high"
+    primary_key: "symbol"
+    description: "Securities trading at or touching new 52-week highs in the equity market"
+    expected_fields:
+      - "symbol"
+      - "comapnyName"
+      - "series"
+      - "ltp"
+      - "new52WHL"
+      - "prev52WHL"
+      - "prevClose"
+      - "change"
+      - "pChange"
+      - "prevHLDate"

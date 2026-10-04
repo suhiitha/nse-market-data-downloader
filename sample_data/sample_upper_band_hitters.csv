@@ -1,0 +1,5 @@
+symbol,series,ltp,change,pChange,priceBand,highPrice,lowPrice,totalTradedVol,turnover
+MTARTECH,BE,7771.0,370.0,5.0,5,7771.0,7400.0,2.83,223.41
+FILATFASH,EQ,24.85,1.15,4.85,5,24.85,23.50,15.2,37.80
+KOPRAN,EQ,312.4,14.85,4.99,5,312.4,298.0,4.6,14.36
+SPAL,EQ,145.9,6.95,5.0,5,145.9,139.0,3.1,4.52
